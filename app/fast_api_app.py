@@ -70,7 +70,12 @@ app.description = "API for interacting with the Agent money-management-agent"
 
 # Initialize Global Runner for Agent Chat
 session_service = InMemorySessionService()
-runner = Runner(agent=root_agent, app_name="app", session_service=session_service)
+runner = Runner(
+    agent=root_agent,
+    app_name="app",
+    session_service=session_service,
+    auto_create_session=True,
+)
 
 
 # Pydantic Schemas
@@ -166,14 +171,14 @@ async def agent_chat(req: ChatRequest) -> dict:
     """Processes message requests through the ADK agent engine."""
     try:
         # Create session if not already existing
-        try:
-            await session_service.get_session(
-                app_name="app", user_id="local_user", session_id=req.session_id
-            )
-        except Exception:
+        session = await session_service.get_session(
+            app_name="app", user_id="local_user", session_id=req.session_id
+        )
+        if not session:
             await session_service.create_session(
                 app_name="app", user_id="local_user", session_id=req.session_id
             )
+
 
         new_msg = types.Content(
             role="user", parts=[types.Part.from_text(text=req.message)]
