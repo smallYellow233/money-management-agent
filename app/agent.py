@@ -21,19 +21,14 @@ from google.adk.models import Gemini
 from google.genai import types
 
 import os
-import google.auth
+import dotenv
 
-# Set up local defaults
-os.environ["GOOGLE_CLOUD_LOCATION"] = "global"
-os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
+# Load local .env variables
+dotenv.load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
 
-try:
-    _, project_id = google.auth.default()
-    os.environ["GOOGLE_CLOUD_PROJECT"] = project_id
-except Exception:
-    # Fallback if credentials not configured yet
-    if "GOOGLE_CLOUD_PROJECT" not in os.environ:
-        os.environ["GOOGLE_CLOUD_PROJECT"] = "mock-project"
+# Disable Vertex AI to use AI Studio API key
+os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
+
 
 from app.tools import (
     record_expense_tool,
