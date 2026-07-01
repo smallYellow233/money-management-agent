@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeSpend AI - Money Management Concierge</title>
+    <title>Easy Count - Money Management Concierge</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -12,9 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
+            /* Dark Mode Variables (Default) */
             --bg-primary: #090d16;
-            --bg-surface: rgba(17, 24, 39, 0.7);
-            --bg-surface-hover: rgba(31, 41, 55, 0.8);
+            --bg-surface: rgba(17, 24, 39, 0.75);
+            --bg-surface-hover: rgba(31, 41, 55, 0.85);
             --border-color: rgba(255, 255, 255, 0.08);
             --text-primary: #f3f4f6;
             --text-secondary: #9ca3af;
@@ -23,12 +24,37 @@
             --accent-red: #ef4444;
             --accent-purple: #8b5cf6;
             --font-family: 'Plus Jakarta Sans', sans-serif;
+            --chat-agent-bg: rgba(255, 255, 255, 0.05);
+            --header-bg: rgba(9, 13, 22, 0.8);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --panel-header-color: var(--accent-purple);
+        }
+
+        body.light-mode {
+            /* Light Mode Variables */
+            --bg-primary: #f1f5f9;
+            --bg-surface: rgba(255, 255, 255, 0.85);
+            --bg-surface-hover: rgba(241, 245, 249, 0.9);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --primary-grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --accent-green: #059669;
+            --accent-red: #dc2626;
+            --accent-purple: #6d28d9;
+            --chat-agent-bg: rgba(0, 0, 0, 0.04);
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --shadow: 0 8px 30px 0 rgba(15, 23, 42, 0.08);
+            --input-bg: rgba(0, 0, 0, 0.03);
+            --panel-header-color: var(--accent-purple);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -41,23 +67,23 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism utility */
+        /* Glassmorphism card */
         .glass-card {
             background: var(--bg-surface);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
         }
 
         header {
-            padding: 20px 40px;
+            padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(9, 13, 22, 0.8);
+            background: var(--header-bg);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -66,13 +92,14 @@
 
         .logo {
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             background: var(--primary-grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: -0.5px;
         }
 
         .header-actions {
@@ -83,18 +110,17 @@
 
         select, input, button {
             font-family: var(--font-family);
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--input-bg);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
             padding: 10px 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             outline: none;
-            transition: all 0.3s ease;
         }
 
         select:focus, input:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
         }
 
         button {
@@ -103,30 +129,44 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            border: 1px solid var(--border-color);
         }
 
         button.btn-primary {
             background: var(--primary-grad);
             border: none;
+            color: #ffffff;
         }
 
         button.btn-primary:hover {
-            opacity: 0.9;
+            opacity: 0.95;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
         }
 
         button.btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border-color);
+            background: var(--input-bg);
         }
 
         button.btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-surface-hover);
+        }
+
+        /* Toggle Mode Button */
+        .toggle-mode-btn {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            padding: 0;
+            font-size: 1.1rem;
         }
 
         .main-container {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1.9fr 1.1fr;
             gap: 30px;
             padding: 30px 40px;
             flex-grow: 1;
@@ -164,28 +204,47 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--primary-grad);
+            opacity: 0.03;
+            filter: blur(20px);
+            border-radius: 50%;
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-value {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .stat-meta {
-            font-size: 0.75rem;
-            margin-top: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .budget-progress-container {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+            height: 8px;
+            background: rgba(128, 128, 128, 0.15);
+            border-radius: 4px;
             overflow: hidden;
             margin-top: 10px;
         }
@@ -194,13 +253,13 @@
             height: 100%;
             width: 0%;
             background: var(--primary-grad);
-            border-radius: 3px;
-            transition: width 0.5s ease;
+            border-radius: 4px;
+            transition: width 0.5s ease, background 0.3s ease;
         }
 
         .charts-and-entry {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.25fr 1fr;
             gap: 20px;
         }
 
@@ -217,7 +276,8 @@
             justify-content: space-between;
             align-items: center;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            letter-spacing: -0.2px;
         }
 
         .card-body {
@@ -226,7 +286,7 @@
 
         /* Forms */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -235,14 +295,14 @@
         .form-group label {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .form-group input, .form-group select {
             width: 100%;
         }
 
-        /* Transactions List */
+        /* Transactions List - Card Styling similar to Daak/簡單記帳 */
         .transaction-list {
             display: flex;
             flex-direction: column;
@@ -257,7 +317,7 @@
         }
 
         .transaction-list::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(128, 128, 128, 0.2);
             border-radius: 10px;
         }
 
@@ -265,33 +325,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 18px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.02);
+            padding: 14px 20px;
+            border-radius: 16px;
+            background: var(--input-bg);
             border: 1px solid var(--border-color);
-            transition: background 0.3s ease;
-        }
-
-        .transaction-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
 
         .trans-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .trans-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(168, 85, 247, 0.15);
+            background: rgba(124, 58, 237, 0.12);
             color: var(--accent-purple);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .trans-info {
@@ -301,34 +357,38 @@
         }
 
         .trans-note {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.95rem;
         }
 
         .trans-meta {
             font-size: 0.75rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .trans-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .trans-amount {
-            font-weight: 700;
-            font-size: 1.05rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent-red); /* Style output red for expenses like typical bookkeeping apps */
         }
 
         .trans-delete {
             color: var(--text-secondary);
             cursor: pointer;
-            transition: color 0.2s ease;
+            padding: 4px;
+            border-radius: 8px;
         }
 
         .trans-delete:hover {
             color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.08);
         }
 
         /* AI Concierge Chat Panel */
@@ -354,36 +414,38 @@
         }
 
         .chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(128, 128, 128, 0.2);
             border-radius: 10px;
         }
 
         .message {
             max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 16px;
+            padding: 12px 18px;
+            border-radius: 18px;
             font-size: 0.925rem;
             line-height: 1.5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .message.user {
             align-self: flex-end;
             background: var(--primary-grad);
+            color: #ffffff;
             border-bottom-right-radius: 4px;
         }
 
         .message.agent {
             align-self: flex-start;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--chat-agent-bg);
             border: 1px solid var(--border-color);
             border-bottom-left-radius: 4px;
         }
 
         .chat-input-area {
-            padding: 15px;
+            padding: 16px;
             border-top: 1px solid var(--border-color);
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .chat-input-area input {
@@ -395,13 +457,13 @@
             gap: 10px;
             padding: 10px 20px;
             border-top: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(128, 128, 128, 0.04);
             overflow-x: auto;
         }
 
         .quick-btn {
             font-size: 0.75rem;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             white-space: nowrap;
         }
@@ -411,8 +473,8 @@
             font-size: 0.75rem;
             color: var(--text-secondary);
             font-style: italic;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 8px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 10px;
             padding-top: 8px;
         }
 
@@ -437,9 +499,13 @@
 <body>
     <header>
         <div class="logo">
-            <i class="fa-solid fa-wallet"></i> VibeSpend AI
+            <i class="fa-solid fa-piggy-bank"></i> Easy Count
         </div>
         <div class="header-actions">
+            <!-- Mode Toggle Switch -->
+            <button class="toggle-mode-btn btn-secondary" onclick="toggleTheme()" title="Toggle Light/Dark Mode">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
             <select id="month-selector" onchange="loadDashboardData()">
                 <option value="2026-06" selected>June 2026</option>
                 <option value="2026-05">May 2026</option>
@@ -478,8 +544,8 @@
             <!-- Charts and Quick Entry -->
             <div class="charts-and-entry">
                 <div class="chart-container glass-card">
-                    <div class="card-header">Category breakdown</div>
-                    <div class="card-body" style="height: 250px; display: flex; justify-content: center; align-items: center;">
+                    <div class="card-header">Category distribution</div>
+                    <div class="card-body" style="height: 255px; display: flex; justify-content: center; align-items: center; position: relative;">
                         <canvas id="category-chart"></canvas>
                     </div>
                 </div>
@@ -535,14 +601,14 @@
         <div class="chat-panel glass-card">
             <div class="card-header">
                 <div>
-                    <i class="fa-solid fa-robot" style="color: var(--accent-purple);"></i> AI Money Advisor
+                    <i class="fa-solid fa-piggy-bank" style="color: var(--panel-header-color); margin-right: 6px;"></i> AI Money Advisor
                 </div>
-                <div style="font-size: 0.75rem; font-weight: 500; color: var(--text-secondary)">Active Session</div>
+                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary)">Active Session</div>
             </div>
             
             <div class="chat-messages" id="chat-messages">
                 <div class="message agent">
-                    Hello! I am your VibeSpend AI financial concierge. I can record your spending, review your budget, and analyze your transactions. How can I help you manage your money today?
+                    Hello! I am your Easy Count financial concierge. I can record your spending, review your budget, and analyze your transactions. How can I help you manage your money today?
                 </div>
             </div>
 
@@ -570,6 +636,29 @@
 
         let categoryChart = null;
         let sessionId = 'session_' + Math.random().toString(36).substr(2, 9);
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        // Set initial theme
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+        }
+
+        function toggleTheme() {
+            if (document.body.classList.contains('light-mode')) {
+                document.body.classList.remove('light-mode');
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+                currentTheme = 'dark';
+            } else {
+                document.body.classList.add('light-mode');
+                document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+                currentTheme = 'light';
+            }
+            // Re-render chart to adjust label colors
+            loadDashboardData();
+        }
 
         // Map categories to FontAwesome icons
         const categoryIcons = {
@@ -657,7 +746,6 @@
                     transData.transactions.forEach(t => {
                         const icon = categoryIcons[t.category] || 'fa-ellipsis';
                         const noteText = t.note ? t.note : '';
-                        const dateOnly = t.date;
                         
                         const itemHtml = `
                             <div class="transaction-item">
@@ -667,7 +755,7 @@
                                     </div>
                                     <div class="trans-info">
                                         <div class="trans-note">${t.category} ${noteText ? ' - ' + noteText : ''}</div>
-                                        <div class="trans-meta">${dateOnly}</div>
+                                        <div class="trans-meta">${t.date}</div>
                                     </div>
                                 </div>
                                 <div class="trans-right">
@@ -766,7 +854,6 @@
             const dataValues = Object.values(breakdown);
 
             if (categories.length === 0) {
-                // Empty state or hide chart
                 if (categoryChart) categoryChart.destroy();
                 categoryChart = null;
                 return;
@@ -786,6 +873,9 @@
                 categoryChart.destroy();
             }
 
+            const isLight = document.body.classList.contains('light-mode');
+            const labelColor = isLight ? '#0f172a' : '#f3f4f6';
+
             categoryChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -794,7 +884,7 @@
                         data: dataValues,
                         backgroundColor: colors.slice(0, categories.length),
                         borderWidth: 1,
-                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                        borderColor: isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.1)'
                     }]
                 },
                 options: {
@@ -804,7 +894,7 @@
                         legend: {
                             position: 'right',
                             labels: {
-                                color: '#f3f4f6',
+                                color: labelColor,
                                 font: {
                                     family: 'Plus Jakarta Sans',
                                     size: 11
@@ -822,7 +912,6 @@
             const msgDiv = document.createElement('div');
             msgDiv.className = `message ${sender}`;
             
-            // Format disclaimers nicely if present in the text
             const disclaimerText = "*Disclaimer: The suggestions provided are for informational purposes only and do not constitute professional financial advice.*";
             if (text.includes(disclaimerText)) {
                 const cleanText = text.replace(disclaimerText, '').trim();
@@ -887,13 +976,13 @@
                 });
                 const data = await response.json();
                 
-                // Remove loading bubble
                 const bubble = document.getElementById('chat-loading-bubble');
                 if (bubble) bubble.remove();
 
                 if (data.status === 'success') {
-                    appendMessage('agent', data.response);
-                    // Reload dashboard data in case the agent called a recording tool internally
+                    // Make sure branding "Easy Count" is referenced in agent replies generally
+                    let reply = data.response.replace(/VibeSpend AI/g, "Easy Count");
+                    appendMessage('agent', reply);
                     loadDashboardData();
                 } else {
                     appendMessage('agent', "I'm sorry, I encountered an error communicating with the core engine.");
