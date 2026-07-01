@@ -47,6 +47,28 @@ agents-cli playground
 
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
 
+## 🐷 Demo Scenarios Importer
+
+To make it easy to test features like Piggy Advisor analysis or the visual category and daily trend charts, you can populate the database with realistic demo scenarios directly from your terminal:
+
+* **balanced**: Budget set to $2000.00 and 29 realistic transactions totaling $1975.90 for June 2026 (balanced).
+* **overbudget**: Budget set to $1500.00 and 12 luxury transactions totaling $2225.00 for June 2026 (over budget limit).
+* **current**: Appends initial draft transactions for July 2026.
+* **clear**: Erases all database budget limits and transaction records.
+
+Run the import script using `uv`:
+
+```bash
+# Load balanced June 2026 scenario
+uv run python scripts/import_demo.py --scenario balanced
+
+# Load overbudget June 2026 scenario
+uv run python scripts/import_demo.py --scenario overbudget
+
+# Clear database
+uv run python scripts/import_demo.py --scenario clear
+```
+
 ## Commands
 
 | Command              | Description                                                                                 |
