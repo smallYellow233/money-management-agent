@@ -3,51 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Count - Money Management Concierge</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Easy Count - Cute Money Management App</title>
+    <!-- Google Fonts: Quicksand for playful rounded typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Dark Mode Variables (Default) */
-            --bg-primary: #090d16;
-            --bg-surface: rgba(17, 24, 39, 0.75);
-            --bg-surface-hover: rgba(31, 41, 55, 0.85);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            --primary-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            /* Cute Playful Light Mode (Default) */
+            --bg-primary: #fffdf5; /* Warm soft yellow background */
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #faf7eb;
+            --border-color: rgba(217, 119, 6, 0.08);
+            --text-primary: #374151;
+            --text-secondary: #6b7280;
+            --primary-grad: linear-gradient(135deg, #fbcfe8 0%, #db2777 100%); /* Piggy sunset gradient */
             --accent-green: #10b981;
-            --accent-red: #ef4444;
+            --accent-red: #f43f5e;
             --accent-purple: #8b5cf6;
-            --font-family: 'Plus Jakarta Sans', sans-serif;
-            --chat-agent-bg: rgba(255, 255, 255, 0.05);
-            --header-bg: rgba(9, 13, 22, 0.8);
-            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --input-bg: rgba(255, 255, 255, 0.05);
-            --panel-header-color: var(--accent-purple);
+            --font-family: 'Quicksand', sans-serif;
+            --chat-agent-bg: #fffbf0;
+            --header-bg: rgba(255, 253, 245, 0.95);
+            --shadow: 0 10px 30px rgba(217, 119, 6, 0.05);
+            --input-bg: #fdfcf7;
+            --panel-header-color: #db2777;
+            --ring-bg: #f3f4f6;
         }
 
-        body.light-mode {
-            /* Light Mode Variables */
-            --bg-primary: #f1f5f9;
-            --bg-surface: rgba(255, 255, 255, 0.85);
-            --bg-surface-hover: rgba(241, 245, 249, 0.9);
-            --border-color: rgba(0, 0, 0, 0.08);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --primary-grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            --accent-green: #059669;
-            --accent-red: #dc2626;
-            --accent-purple: #6d28d9;
-            --chat-agent-bg: rgba(0, 0, 0, 0.04);
-            --header-bg: rgba(255, 255, 255, 0.8);
-            --shadow: 0 8px 30px 0 rgba(15, 23, 42, 0.08);
-            --input-bg: rgba(0, 0, 0, 0.03);
-            --panel-header-color: var(--accent-purple);
+        body.dark-mode {
+            /* Cute Cozy Dark Mode */
+            --bg-primary: #121214;
+            --bg-surface: #1e1e24;
+            --bg-surface-hover: #26262f;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --primary-grad: linear-gradient(135deg, #f472b6 0%, #be185d 100%);
+            --accent-green: #34d399;
+            --accent-red: #fb7185;
+            --accent-purple: #a78bfa;
+            --chat-agent-bg: #272730;
+            --header-bg: rgba(18, 18, 20, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            --input-bg: #2d2d37;
+            --panel-header-color: #f472b6;
+            --ring-bg: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -67,14 +69,13 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism card */
+        /* Glassmorphism/Cute card style */
         .glass-card {
             background: var(--bg-surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
+            border-radius: 28px;
             box-shadow: var(--shadow);
+            overflow: hidden;
         }
 
         header {
@@ -92,8 +93,8 @@
 
         .logo {
             font-weight: 800;
-            font-size: 1.6rem;
-            background: var(--primary-grad);
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #db2777 0%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
@@ -105,7 +106,44 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
+        }
+
+        /* Month navigation design from Image 1 & 5 */
+        .month-nav {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 4px 8px;
+            gap: 12px;
+        }
+
+        .nav-arrow {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .nav-arrow:hover {
+            background: var(--bg-surface-hover);
+        }
+
+        .current-month-text {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            min-width: 110px;
+            text-align: center;
         }
 
         select, input, button {
@@ -114,22 +152,23 @@
             border: 1px solid var(--border-color);
             color: var(--text-primary);
             padding: 10px 16px;
-            border-radius: 14px;
+            border-radius: 16px;
             outline: none;
+            font-size: 0.95rem;
+            font-weight: 600;
         }
 
         select:focus, input:focus {
-            border-color: #7c3aed;
-            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+            border-color: #db2777;
+            box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.15);
         }
 
         button {
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid var(--border-color);
         }
 
         button.btn-primary {
@@ -141,7 +180,7 @@
         button.btn-primary:hover {
             opacity: 0.95;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+            box-shadow: 0 6px 20px rgba(219, 39, 119, 0.25);
         }
 
         button.btn-secondary {
@@ -159,14 +198,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 0;
             font-size: 1.1rem;
         }
 
         .main-container {
             display: grid;
-            grid-template-columns: 1.9fr 1.1fr;
+            grid-template-columns: 1.8fr 1.2fr;
             gap: 30px;
             padding: 30px 40px;
             flex-grow: 1;
@@ -187,84 +226,100 @@
             gap: 30px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        /* Circular Budget Card layout */
+        .budget-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 30px;
         }
-
-        @media (max-width: 640px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 600px) {
+            .budget-flex {
+                flex-direction: column;
             }
         }
-
-        .stat-card {
-            padding: 24px;
+        .circle-gauge-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .gauge-text {
+            position: absolute;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
+            align-items: center;
+            justify-content: center;
         }
-
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 80px;
-            height: 80px;
-            background: var(--primary-grad);
-            opacity: 0.03;
-            filter: blur(20px);
-            border-radius: 50%;
+        .gauge-percent {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
         }
-
-        .stat-label {
+        .gauge-label {
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        .budget-stats-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            flex-grow: 1;
         }
-
-        .stat-meta {
+        @media (max-width: 640px) {
+            .budget-stats-boxes {
+                grid-template-columns: 1fr;
+            }
+        }
+        .budget-stat-box {
+            padding: 16px 20px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-weight: 700;
+        }
+        .budget-stat-box.box-expense {
+            background-color: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.12);
+            color: var(--accent-red);
+        }
+        .budget-stat-box.box-budget {
+            background-color: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            color: var(--accent-green);
+        }
+        .budget-stat-box.box-remaining {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+        }
+        .box-lbl {
             font-size: 0.8rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .box-val {
+            font-size: 1.5rem;
+            font-weight: 800;
         }
 
-        .budget-progress-container {
-            height: 8px;
-            background: rgba(128, 128, 128, 0.15);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .budget-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--primary-grad);
-            border-radius: 4px;
-            transition: width 0.5s ease, background 0.3s ease;
-        }
-
-        .charts-and-entry {
+        /* Grid for charts & items */
+        .dashboard-grid-2 {
             display: grid;
-            grid-template-columns: 1.25fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
         }
-
         @media (max-width: 768px) {
-            .charts-and-entry {
+            .dashboard-grid-2 {
                 grid-template-columns: 1fr;
             }
         }
@@ -275,7 +330,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.15rem;
             letter-spacing: -0.2px;
         }
@@ -295,60 +350,98 @@
         .form-group label {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .form-group input, .form-group select {
             width: 100%;
         }
 
-        /* Transactions List - Card Styling similar to Daak/簡單記帳 */
-        .transaction-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-height: 400px;
+        /* Grouped Transaction list style */
+        .transaction-list-container {
+            max-height: 450px;
             overflow-y: auto;
             padding-right: 5px;
         }
-
-        .transaction-list::-webkit-scrollbar {
-            width: 5px;
+        .transaction-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .transaction-list-container::-webkit-scrollbar-thumb {
+            background: rgba(128, 128, 128, 0.15);
+            border-radius: 10px;
         }
 
-        .transaction-list::-webkit-scrollbar-thumb {
-            background: rgba(128, 128, 128, 0.2);
-            border-radius: 10px;
+        .transaction-group {
+            margin-bottom: 20px;
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 4px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .group-total {
+            color: var(--accent-red);
+            font-weight: 800;
+        }
+
+        .group-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .transaction-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 20px;
-            border-radius: 16px;
+            padding: 12px 16px;
+            border-radius: 18px;
             background: var(--input-bg);
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
 
         .trans-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
+        /* Cute round icons with pastel backgrounds */
         .trans-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(124, 58, 237, 0.12);
-            color: var(--accent-purple);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
         }
+
+        /* Pastel circular icon background stylings */
+        body.light-mode .trans-icon.category-food { background-color: #fef3c7; color: #d97706; }
+        body.light-mode .trans-icon.category-transportation { background-color: #e0f2fe; color: #0284c7; }
+        body.light-mode .trans-icon.category-shopping { background-color: #fce7f3; color: #db2777; }
+        body.light-mode .trans-icon.category-entertainment { background-color: #f3e8ff; color: #7c3aed; }
+        body.light-mode .trans-icon.category-utilities { background-color: #dcfce7; color: #059669; }
+        body.light-mode .trans-icon.category-rent { background-color: #e0e7ff; color: #4f46e5; }
+        body.light-mode .trans-icon.category-others { background-color: #f1f5f9; color: #475569; }
+
+        .trans-icon.category-food { background-color: rgba(217, 119, 6, 0.18); color: #fbbf24; }
+        .trans-icon.category-transportation { background-color: rgba(2, 132, 199, 0.18); color: #38bdf8; }
+        .trans-icon.category-shopping { background-color: rgba(219, 39, 119, 0.18); color: #f472b6; }
+        .trans-icon.category-entertainment { background-color: rgba(124, 58, 237, 0.18); color: #c084fc; }
+        .trans-icon.category-utilities { background-color: rgba(5, 150, 105, 0.18); color: #34d399; }
+        .trans-icon.category-rent { background-color: rgba(79, 70, 229, 0.18); color: #818cf8; }
+        .trans-icon.category-others { background-color: rgba(71, 85, 105, 0.18); color: #94a3b8; }
 
         .trans-info {
             display: flex;
@@ -359,39 +452,34 @@
         .trans-note {
             font-weight: 700;
             font-size: 0.95rem;
-        }
-
-        .trans-meta {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 500;
+            color: var(--text-primary);
         }
 
         .trans-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .trans-amount {
             font-weight: 800;
             font-size: 1.1rem;
-            color: var(--accent-red); /* Style output red for expenses like typical bookkeeping apps */
+            color: var(--accent-red);
         }
 
         .trans-delete {
             color: var(--text-secondary);
             cursor: pointer;
-            padding: 4px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 10px;
         }
 
         .trans-delete:hover {
             color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.08);
+            background: rgba(244, 63, 94, 0.08);
         }
 
-        /* AI Concierge Chat Panel */
+        /* Piggy Advisor Panel design */
         .chat-panel {
             display: flex;
             flex-direction: column;
@@ -403,42 +491,77 @@
         .chat-messages {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .chat-messages::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
         }
 
         .chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(128, 128, 128, 0.2);
+            background: rgba(128, 128, 128, 0.15);
             border-radius: 10px;
         }
 
-        .message {
+        /* Speech bubbles with avatar wrapper */
+        .message-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
             max-width: 85%;
+        }
+        .message-wrapper.user-wrapper {
+            align-self: flex-end;
+            justify-content: flex-end;
+        }
+        .message-wrapper.agent-wrapper {
+            align-self: flex-start;
+        }
+
+        .agent-avatar {
+            width: 36px;
+            height: 36px;
+            background: #fce7f3;
+            border: 2px solid #ec4899;
+            color: #db2777;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        body.dark-mode .agent-avatar {
+            background: #be185d;
+            border: 2px solid #f472b6;
+            color: #ffffff;
+        }
+
+        .message {
             padding: 12px 18px;
-            border-radius: 18px;
-            font-size: 0.925rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
             line-height: 1.5;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            word-break: break-word;
         }
 
         .message.user {
-            align-self: flex-end;
             background: var(--primary-grad);
             color: #ffffff;
             border-bottom-right-radius: 4px;
+            font-weight: 600;
         }
 
         .message.agent {
-            align-self: flex-start;
             background: var(--chat-agent-bg);
             border: 1px solid var(--border-color);
             border-bottom-left-radius: 4px;
+            color: var(--text-primary);
         }
 
         .chat-input-area {
@@ -455,14 +578,14 @@
         .chat-quick-actions {
             display: flex;
             gap: 10px;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-top: 1px solid var(--border-color);
-            background: rgba(128, 128, 128, 0.04);
+            background: rgba(217, 119, 6, 0.02);
             overflow-x: auto;
         }
 
         .quick-btn {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             padding: 6px 14px;
             border-radius: 20px;
             white-space: nowrap;
@@ -496,7 +619,7 @@
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <header>
         <div class="logo">
             <i class="fa-solid fa-piggy-bank"></i> Easy Count
@@ -504,13 +627,18 @@
         <div class="header-actions">
             <!-- Mode Toggle Switch -->
             <button class="toggle-mode-btn btn-secondary" onclick="toggleTheme()" title="Toggle Light/Dark Mode">
-                <i class="fa-solid fa-sun" id="theme-icon"></i>
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
             </button>
-            <select id="month-selector" onchange="loadDashboardData()">
-                <option value="2026-06" selected>June 2026</option>
-                <option value="2026-05">May 2026</option>
-                <option value="2026-07">July 2026</option>
-            </select>
+            <!-- Month navigation from Image 1 & 5 -->
+            <div class="month-nav">
+                <button class="nav-arrow" onclick="changeMonth(-1)" title="Previous Month">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="current-month-text" id="month-display">June 2026</span>
+                <button class="nav-arrow" onclick="changeMonth(1)" title="Next Month">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
             <button class="btn-secondary" onclick="openBudgetModal()">
                 <i class="fa-solid fa-gears"></i> Set Budget
             </button>
@@ -518,38 +646,67 @@
     </header>
 
     <div class="main-container">
-        <!-- Left Side: Dashboard Stats & entry -->
+        <!-- Left Side: Bookkeeping Dashboard -->
         <div class="dashboard-content">
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-card glass-card">
-                    <div class="stat-label">Total Spent</div>
-                    <div class="stat-value" id="total-spent-display">$0.00</div>
-                    <div class="stat-meta" id="total-spent-meta">0 transactions this month</div>
-                </div>
-                <div class="stat-card glass-card">
-                    <div class="stat-label">Monthly Budget</div>
-                    <div class="stat-value" id="budget-display">$0.00</div>
-                    <div class="budget-progress-container">
-                        <div class="budget-progress-bar" id="budget-progress"></div>
+            
+            <!-- Budget circular status card -->
+            <div class="budget-card glass-card">
+                <div class="card-header">Monthly Budget Status</div>
+                <div class="card-body budget-flex">
+                    <div class="circle-gauge-container">
+                        <svg class="progress-ring" width="140" height="140">
+                            <circle class="progress-ring__circle-bg" stroke="var(--ring-bg)" stroke-width="10" fill="transparent" r="55" cx="70" cy="70"/>
+                            <circle class="progress-ring__circle" id="budget-circle" stroke="url(#circleGrad)" stroke-width="10" stroke-linecap="round" fill="transparent" r="55" cx="70" cy="70" stroke-dasharray="345.58" stroke-dashoffset="345.58"/>
+                            <defs>
+                                <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" />
+                                    <stop offset="100%" stop-color="#be185d" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="gauge-text">
+                            <span class="gauge-percent" id="budget-percentage">0%</span>
+                            <span class="gauge-label">Used</span>
+                        </div>
                     </div>
-                </div>
-                <div class="stat-card glass-card">
-                    <div class="stat-label">Remaining Budget</div>
-                    <div class="stat-value" id="remaining-display">$0.00</div>
-                    <div class="stat-meta" id="remaining-meta">Within budget limit</div>
+
+                    <div class="budget-stats-boxes">
+                        <div class="budget-stat-box box-expense">
+                            <span class="box-lbl">Total Spent</span>
+                            <span class="box-val" id="spent-val">$0.00</span>
+                        </div>
+                        <div class="budget-stat-box box-budget">
+                            <span class="box-lbl">Monthly Budget</span>
+                            <span class="box-val" id="limit-val">$0.00</span>
+                        </div>
+                        <div class="budget-stat-box box-remaining">
+                            <span class="box-lbl">Remaining</span>
+                            <span class="box-val" id="remaining-val">$0.00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Charts and Quick Entry -->
-            <div class="charts-and-entry">
+            <!-- Charts Section (Doughnut & Daily Bar Chart side by side) -->
+            <div class="dashboard-grid-2">
                 <div class="chart-container glass-card">
-                    <div class="card-header">Category distribution</div>
-                    <div class="card-body" style="height: 255px; display: flex; justify-content: center; align-items: center; position: relative;">
+                    <div class="card-header">Category Breakdown</div>
+                    <div class="card-body" style="height: 250px; display: flex; justify-content: center; align-items: center; position: relative;">
                         <canvas id="category-chart"></canvas>
                     </div>
                 </div>
 
+                <div class="chart-container glass-card">
+                    <div class="card-header">Daily Spending Trend</div>
+                    <div class="card-body" style="height: 250px; position: relative;">
+                        <canvas id="trend-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input and Transaction List side-by-side -->
+            <div class="dashboard-grid-2">
+                <!-- Record Form -->
                 <div class="quick-entry-card glass-card">
                     <div class="card-header">Record Expense</div>
                     <div class="card-body">
@@ -571,8 +728,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="note">Note (PII is auto-masked)</label>
-                                <input type="text" id="note" placeholder="Dinner with team or email/phone...">
+                                <label for="note">Note</label>
+                                <input type="text" id="note" placeholder="E.g., Lunch, Bus fare...">
                             </div>
                             <div class="form-group">
                                 <label for="date">Date</label>
@@ -584,31 +741,35 @@
                         </form>
                     </div>
                 </div>
-            </div>
 
-            <!-- Recent Transactions -->
-            <div class="recent-transactions-card glass-card">
-                <div class="card-header">Recent Transactions</div>
-                <div class="card-body">
-                    <div class="transaction-list" id="transaction-list">
-                        <!-- Items dynamically generated -->
+                <!-- Grouped Transactions -->
+                <div class="recent-transactions-card glass-card">
+                    <div class="card-header">Recent Transactions</div>
+                    <div class="card-body">
+                        <div class="transaction-list-container" id="transaction-list">
+                            <!-- Populated dynamically and grouped by date -->
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- Right Side: AI Assistant Panel -->
+        <!-- Right Side: Piggy Advisor Panel -->
         <div class="chat-panel glass-card">
             <div class="card-header">
                 <div>
-                    <i class="fa-solid fa-piggy-bank" style="color: var(--panel-header-color); margin-right: 6px;"></i> AI Money Advisor
+                    <i class="fa-solid fa-piggy-bank" style="color: var(--panel-header-color); margin-right: 6px;"></i> Piggy Advisor
                 </div>
                 <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary)">Active Session</div>
             </div>
             
             <div class="chat-messages" id="chat-messages">
-                <div class="message agent">
-                    Hello! I am your Easy Count financial concierge. I can record your spending, review your budget, and analyze your transactions. How can I help you manage your money today?
+                <div class="message-wrapper agent-wrapper">
+                    <div class="agent-avatar"><i class="fa-solid fa-piggy-bank"></i></div>
+                    <div class="message agent">
+                        Hello! I am your Easy Count Piggy Advisor. I can record your spending, review your budget, and analyze your transactions. How can I help you manage your money today?
+                    </div>
                 </div>
             </div>
 
@@ -622,7 +783,7 @@
             </div>
 
             <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Type a message to the Concierge..." onkeypress="handleChatKeyPress(event)">
+                <input type="text" id="chat-input" placeholder="Ask Piggy Advisor..." onkeypress="handleChatKeyPress(event)">
                 <button class="btn-primary" onclick="sendChatMessage()">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
@@ -635,29 +796,60 @@
         document.getElementById('date').value = new Date().toISOString().split('T')[0];
 
         let categoryChart = null;
+        let trendChart = null;
         let sessionId = 'session_' + Math.random().toString(36).substr(2, 9);
-        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let currentMonth = '2026-06';
+        let currentTheme = localStorage.getItem('theme') || 'light';
 
-        // Set initial theme
-        if (currentTheme === 'light') {
+        // Initialize theme
+        if (currentTheme === 'dark') {
+            document.body.classList.remove('light-mode');
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+        } else {
             document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
             document.getElementById('theme-icon').className = 'fa-solid fa-moon';
         }
 
         function toggleTheme() {
             if (document.body.classList.contains('light-mode')) {
                 document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
                 document.getElementById('theme-icon').className = 'fa-solid fa-sun';
                 localStorage.setItem('theme', 'dark');
                 currentTheme = 'dark';
             } else {
                 document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
                 document.getElementById('theme-icon').className = 'fa-solid fa-moon';
                 localStorage.setItem('theme', 'light');
                 currentTheme = 'light';
             }
-            // Re-render chart to adjust label colors
             loadDashboardData();
+        }
+
+        // Date navigation helpers
+        function changeMonth(direction) {
+            const parts = currentMonth.split('-');
+            let year = parseInt(parts[0]);
+            let month = parseInt(parts[1]) - 1; // JS months are 0-indexed
+            
+            const dateObj = new Date(year, month + direction, 1);
+            
+            const newYear = dateObj.getFullYear();
+            const newMonth = String(dateObj.getMonth() + 1).padStart(2, '0');
+            currentMonth = `${newYear}-${newMonth}`;
+            
+            updateMonthDisplay();
+            loadDashboardData();
+        }
+
+        function updateMonthDisplay() {
+            const parts = currentMonth.split('-');
+            const dateObj = new Date(parseInt(parts[0]), parts[1] - 1, 1);
+            const options = { month: 'long', year: 'numeric' };
+            document.getElementById('month-display').innerText = dateObj.toLocaleDateString('en-US', options);
         }
 
         // Map categories to FontAwesome icons
@@ -671,104 +863,162 @@
             'Others': 'fa-ellipsis'
         };
 
-        // Load dashboard statistics, chart, and transaction list
+        // Load dashboard statistics, chart, trend, and transactions
         async function loadDashboardData() {
-            const month = document.getElementById('month-selector').value;
             try {
-                const response = await fetch(`/api/summary?month=${month}`);
+                const response = await fetch(`/api/summary?month=${currentMonth}`);
                 const data = await response.json();
                 
                 if (data.status === 'success') {
                     const s = data.summary;
-                    document.getElementById('total-spent-display').innerText = `$${s.total_spent.toFixed(2)}`;
-                    document.getElementById('total-spent-meta').innerText = `${s.transactions_count} transactions this month`;
+                    document.getElementById('spent-val').innerText = `$${s.total_spent.toFixed(2)}`;
                     
                     const budget = s.budget_limit;
                     if (budget) {
-                        document.getElementById('budget-display').innerText = `$${budget.toFixed(2)}`;
-                        const percentage = Math.min((s.total_spent / budget) * 100, 100);
-                        const progress = document.getElementById('budget-progress');
-                        progress.style.width = `${percentage}%`;
+                        document.getElementById('limit-val').innerText = `$${budget.toFixed(2)}`;
+                        document.getElementById('remaining-val').innerText = `$${s.remaining_budget.toFixed(2)}`;
                         
+                        const percentage = Math.min((s.total_spent / budget) * 100, 100);
+                        document.getElementById('budget-percentage').innerText = `${Math.round(percentage)}%`;
+                        
+                        // Update budget circle progress ring
+                        const circle = document.getElementById('budget-circle');
+                        const circumference = 345.58; // 2 * pi * r = 2 * 3.14159 * 55
+                        const offset = circumference - (percentage / 100) * circumference;
+                        circle.style.strokeDashoffset = offset;
+
+                        // Color ring based on warning limits
                         if (percentage >= 100) {
-                            progress.style.background = 'var(--accent-red)';
+                            circle.style.stroke = 'var(--accent-red)';
                         } else if (percentage >= 85) {
-                            progress.style.background = '#f59e0b'; // Amber
+                            circle.style.stroke = '#f59e0b'; // Orange warning
                         } else {
-                            progress.style.background = 'var(--primary-grad)';
+                            circle.style.stroke = 'url(#circleGrad)';
                         }
 
-                        document.getElementById('remaining-display').innerText = `$${s.remaining_budget.toFixed(2)}`;
                         if (s.remaining_budget < 0) {
-                            document.getElementById('remaining-display').style.color = 'var(--accent-red)';
-                            document.getElementById('remaining-meta').innerText = 'Over budget limit!';
-                            document.getElementById('remaining-meta').style.color = 'var(--accent-red)';
+                            document.getElementById('remaining-val').style.color = 'var(--accent-red)';
                         } else {
-                            document.getElementById('remaining-display').style.color = 'var(--accent-green)';
-                            document.getElementById('remaining-meta').innerText = 'Within budget limit';
-                            document.getElementById('remaining-meta').style.color = 'var(--text-secondary)';
+                            document.getElementById('remaining-val').style.color = 'var(--accent-green)';
                         }
                     } else {
-                        document.getElementById('budget-display').innerText = 'Not Set';
-                        document.getElementById('budget-progress').style.width = '0%';
-                        document.getElementById('remaining-display').innerText = '--';
-                        document.getElementById('remaining-display').style.color = 'var(--text-primary)';
-                        document.getElementById('remaining-meta').innerText = 'Set a budget to start tracking';
+                        document.getElementById('limit-val').innerText = 'Not Set';
+                        document.getElementById('remaining-val').innerText = '--';
+                        document.getElementById('remaining-val').style.color = 'var(--text-primary)';
+                        document.getElementById('budget-percentage').innerText = '0%';
+                        document.getElementById('budget-circle').style.strokeDashoffset = 345.58;
                     }
 
-                    // Render Chart
-                    renderChart(s.category_breakdown);
+                    // Render Category Doughnut Chart
+                    renderCategoryChart(s.category_breakdown);
 
-                    // Load transactions
-                    loadTransactions(month);
+                    // Load transactions history
+                    loadTransactions();
                 }
             } catch (err) {
                 console.error("Error loading dashboard data:", err);
             }
         }
 
-        async function loadTransactions(month) {
+        async function loadTransactions() {
             try {
-                const response = await fetch(`/api/summary?month=${month}`);
-                const data = await response.json();
-                if (data.status === 'success') {
-                    const monthResponse = await fetch(`/api/transactions?month=${month}`);
-                    const transData = await monthResponse.json();
-                    
-                    const listContainer = document.getElementById('transaction-list');
-                    listContainer.innerHTML = '';
-                    
-                    if (transData.transactions.length === 0) {
-                        listContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 20px;">No transactions recorded.</div>';
-                        return;
-                    }
+                const response = await fetch(`/api/transactions?month=${currentMonth}`);
+                const transData = await response.json();
+                
+                const listContainer = document.getElementById('transaction-list');
+                listContainer.innerHTML = '';
+                
+                if (transData.transactions.length === 0) {
+                    listContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 40px; font-weight:700;">No transactions recorded yet.</div>';
+                    // Clear trend chart
+                    if (trendChart) trendChart.destroy();
+                    trendChart = null;
+                    return;
+                }
 
-                    transData.transactions.forEach(t => {
+                // 1. Calculate Daily Trend
+                const parts = currentMonth.split('-');
+                const year = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const dailyTotals = Array(daysInMonth).fill(0);
+                let totalSpent = 0;
+
+                // 2. Group transactions by Date
+                const grouped = {};
+                transData.transactions.forEach(t => {
+                    // Grouping
+                    if (!grouped[t.date]) {
+                        grouped[t.date] = {
+                            transactions: [],
+                            total: 0
+                        };
+                    }
+                    grouped[t.date].transactions.push(t);
+                    grouped[t.date].total += t.amount;
+                    totalSpent += t.amount;
+
+                    // Daily total calculations
+                    const day = parseInt(t.date.split('-')[2]);
+                    if (day >= 1 && day <= daysInMonth) {
+                        dailyTotals[day - 1] += t.amount;
+                    }
+                });
+
+                // Render Trend Chart
+                const avgDaily = totalSpent / daysInMonth;
+                renderTrendChart(dailyTotals, avgDaily);
+
+                // Sort dates descending
+                const sortedDates = Object.keys(grouped).sort((a, b) => new Date(b) - new Date(a));
+
+                // 3. Render Grouped elements in List
+                sortedDates.forEach(date => {
+                    const dayTotal = grouped[date].total;
+                    const dateObj = new Date(date);
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+                    let groupHtml = `
+                        <div class="transaction-group">
+                            <div class="group-header">
+                                <span class="group-date">${formattedDate}</span>
+                                <span class="group-total">-$${dayTotal.toFixed(2)}</span>
+                            </div>
+                            <div class="group-items">
+                    `;
+
+                    grouped[date].transactions.forEach(t => {
                         const icon = categoryIcons[t.category] || 'fa-ellipsis';
                         const noteText = t.note ? t.note : '';
                         
-                        const itemHtml = `
+                        groupHtml += `
                             <div class="transaction-item">
                                 <div class="trans-left">
-                                    <div class="trans-icon">
+                                    <div class="trans-icon category-${t.category.toLowerCase()}">
                                         <i class="fa-solid ${icon}"></i>
                                     </div>
                                     <div class="trans-info">
-                                        <div class="trans-note">${t.category} ${noteText ? ' - ' + noteText : ''}</div>
-                                        <div class="trans-meta">${t.date}</div>
+                                        <div class="trans-note">${t.category}${noteText ? ' - ' + noteText : ''}</div>
                                     </div>
                                 </div>
                                 <div class="trans-right">
-                                    <div class="trans-amount">$${t.amount.toFixed(2)}</div>
-                                    <div class="trans-delete" onclick="deleteTransaction(${t.id})">
+                                    <span class="trans-amount">-$${t.amount.toFixed(2)}</span>
+                                    <div class="trans-delete" onclick="deleteTransaction(${t.id})" title="Delete record">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </div>
                                 </div>
                             </div>
                         `;
-                        listContainer.innerHTML += itemHtml;
                     });
-                }
+
+                    groupHtml += `
+                            </div>
+                        </div>
+                    `;
+                    listContainer.innerHTML += groupHtml;
+                });
+
             } catch (err) {
                 console.error("Error loading transactions:", err);
             }
@@ -791,10 +1041,12 @@
                 if (res.status === 'success') {
                     document.getElementById('amount').value = '';
                     document.getElementById('note').value = '';
+                    // Set current month to the added expense month
+                    currentMonth = date.substring(0, 7);
+                    updateMonthDisplay();
                     loadDashboardData();
                     
-                    // Add quick agent confirmation in chat
-                    appendMessage('agent', `I've recorded your expense: ${category} of $${amount.toFixed(2)}.`);
+                    appendMessage('agent', `I've recorded your expense of $${amount.toFixed(2)} for ${category}.`);
                 } else {
                     alert(res.message);
                 }
@@ -819,15 +1071,14 @@
         }
 
         function openBudgetModal() {
-            const limit = prompt("Enter monthly budget limit amount:");
+            const limit = prompt("Enter monthly budget limit amount ($):");
             if (limit === null) return;
             const amount = parseFloat(limit);
             if (isNaN(amount) || amount <= 0) {
                 alert("Please enter a valid positive number.");
                 return;
             }
-            const month = document.getElementById('month-selector').value;
-            setBudget(amount, month);
+            setBudget(amount, currentMonth);
         }
 
         async function setBudget(limit_amount, month) {
@@ -840,15 +1091,15 @@
                 const res = await response.json();
                 if (res.status === 'success') {
                     loadDashboardData();
-                    appendMessage('agent', `I've updated your budget limit for ${month} to $${limit_amount.toFixed(2)}.`);
+                    appendMessage('agent', `I've set your budget limit for ${month} to $${limit_amount.toFixed(2)}.`);
                 }
             } catch (err) {
                 console.error("Error setting budget:", err);
             }
         }
 
-        // Render Category Chart using Chart.js
-        function renderChart(breakdown) {
+        // Render Category Doughnut Chart
+        function renderCategoryChart(breakdown) {
             const ctx = document.getElementById('category-chart').getContext('2d');
             const categories = Object.keys(breakdown);
             const dataValues = Object.values(breakdown);
@@ -860,13 +1111,13 @@
             }
 
             const colors = [
-                '#6366f1', // Indigo
-                '#a855f7', // Purple
-                '#10b981', // Emerald
-                '#ef4444', // Red
+                '#db2777', // Rose Pink
                 '#f59e0b', // Amber
+                '#10b981', // Emerald Green
+                '#3b82f6', // blue
+                '#8b5cf6', // purple
                 '#06b6d4', // Cyan
-                '#ec4899'  // Pink
+                '#6b7280'  // Gray
             ];
 
             if (categoryChart) {
@@ -874,7 +1125,7 @@
             }
 
             const isLight = document.body.classList.contains('light-mode');
-            const labelColor = isLight ? '#0f172a' : '#f3f4f6';
+            const labelColor = isLight ? '#374151' : '#f3f4f6';
 
             categoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -883,8 +1134,8 @@
                     datasets: [{
                         data: dataValues,
                         backgroundColor: colors.slice(0, categories.length),
-                        borderWidth: 1,
-                        borderColor: isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.1)'
+                        borderWidth: 2,
+                        borderColor: isLight ? '#ffffff' : '#1e1e24'
                     }]
                 },
                 options: {
@@ -896,9 +1147,83 @@
                             labels: {
                                 color: labelColor,
                                 font: {
-                                    family: 'Plus Jakarta Sans',
-                                    size: 11
+                                    family: 'Quicksand',
+                                    size: 12,
+                                    weight: 'bold'
                                 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Daily Spending Trend Bar Chart
+        function renderTrendChart(dailyTotals, avgDaily) {
+            const ctx = document.getElementById('trend-chart').getContext('2d');
+            const labels = Array.from({length: dailyTotals.length}, (_, i) => i + 1);
+            
+            if (trendChart) {
+                trendChart.destroy();
+            }
+            
+            const isLight = document.body.classList.contains('light-mode');
+            const gridColor = isLight ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.04)';
+            const textColor = isLight ? '#475569' : '#9ca3af';
+            
+            const avgLineData = Array(dailyTotals.length).fill(avgDaily);
+
+            trendChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Daily spent ($)',
+                            data: dailyTotals,
+                            backgroundColor: '#8b5cf6',
+                            borderRadius: 6,
+                            barPercentage: 0.65
+                        },
+                        {
+                            label: `Avg daily ($${avgDaily.toFixed(2)})`,
+                            data: avgLineData,
+                            type: 'line',
+                            borderColor: '#f43f5e',
+                            borderWidth: 2,
+                            borderDash: [6, 4],
+                            fill: false,
+                            pointRadius: 0,
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: textColor,
+                                font: { family: 'Quicksand', size: 10, weight: 'bold' }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Quicksand', size: 9, weight: 'bold' }
+                            }
+                        },
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Quicksand', size: 9, weight: 'bold' }
                             }
                         }
                     }
@@ -909,6 +1234,17 @@
         // Chat helpers
         function appendMessage(sender, text) {
             const container = document.getElementById('chat-messages');
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = `message-wrapper ${sender}-wrapper`;
+
+            if (sender === 'agent') {
+                const avatar = document.createElement('div');
+                avatar.className = 'agent-avatar';
+                avatar.innerHTML = '<i class="fa-solid fa-piggy-bank"></i>';
+                wrapper.appendChild(avatar);
+            }
+
             const msgDiv = document.createElement('div');
             msgDiv.className = `message ${sender}`;
             
@@ -923,10 +1259,12 @@
                 msgDiv.innerHTML = text.replace(/\n/g, '<br>');
             }
 
-            container.appendChild(msgDiv);
+            wrapper.appendChild(msgDiv);
+            container.appendChild(wrapper);
             container.scrollTop = container.scrollHeight;
         }
 
+        // Chat Quick Actions
         function handleChatKeyPress(e) {
             if (e.key === 'Enter') {
                 sendChatMessage();
@@ -957,15 +1295,24 @@
         async function sendMessageToAgent(message) {
             // Append loading bubble
             const container = document.getElementById('chat-messages');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'message-wrapper agent-wrapper';
+            wrapper.id = 'chat-loading-bubble-wrapper';
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'agent-avatar';
+            avatar.innerHTML = '<i class="fa-solid fa-piggy-bank"></i>';
+            wrapper.appendChild(avatar);
+
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'message agent';
-            loadingDiv.id = 'chat-loading-bubble';
             loadingDiv.innerHTML = `
                 <div class="loading-pulse"></div>
                 <div class="loading-pulse"></div>
                 <div class="loading-pulse"></div>
             `;
-            container.appendChild(loadingDiv);
+            wrapper.appendChild(loadingDiv);
+            container.appendChild(wrapper);
             container.scrollTop = container.scrollHeight;
 
             try {
@@ -976,12 +1323,11 @@
                 });
                 const data = await response.json();
                 
-                const bubble = document.getElementById('chat-loading-bubble');
+                const bubble = document.getElementById('chat-loading-bubble-wrapper');
                 if (bubble) bubble.remove();
 
                 if (data.status === 'success') {
-                    // Make sure branding "Easy Count" is referenced in agent replies generally
-                    let reply = data.response.replace(/VibeSpend AI/g, "Easy Count");
+                    let reply = data.response;
                     appendMessage('agent', reply);
                     loadDashboardData();
                 } else {
@@ -989,7 +1335,7 @@
                 }
             } catch (err) {
                 console.error("Error communicating with agent:", err);
-                const bubble = document.getElementById('chat-loading-bubble');
+                const bubble = document.getElementById('chat-loading-bubble-wrapper');
                 if (bubble) bubble.remove();
                 appendMessage('agent', "Connection error: Could not reach the backend server.");
             }
@@ -997,6 +1343,7 @@
 
         // Initialize dashboard on load
         window.onload = function() {
+            updateMonthDisplay();
             loadDashboardData();
         };
     </script>
