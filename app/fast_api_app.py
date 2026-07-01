@@ -180,6 +180,17 @@ async def agent_chat(req: ChatRequest) -> dict:
             )
 
 
+        # Dynamically inject current date context to resolve relative terms (today, yesterday, tomorrow)
+        import datetime
+        local_today = datetime.date.today().strftime("%Y-%m-%d")
+        from app.agent import FINANCIAL_AGENT_INSTRUCTION
+        root_agent.instruction = (
+            f"{FINANCIAL_AGENT_INSTRUCTION}\n\n"
+            f"IMPORTANT context: Today is {local_today}. Use this date as reference for relative dates. "
+            f"E.g., if today is {local_today}, then 'today' refers to {local_today}, 'yesterday' refers to the day before, "
+            f"and 'tomorrow' refers to the day after. Resolve relative terms to specific dates when calling tools."
+        )
+
         new_msg = types.Content(
             role="user", parts=[types.Part.from_text(text=req.message)]
         )
