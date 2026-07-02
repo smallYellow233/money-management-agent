@@ -1,17 +1,59 @@
 {
   "eval_cases": [
     {
-      "eval_case_id": "greeting",
+      "eval_case_id": "record_expense",
       "prompt": {
         "role": "user",
-        "parts": [{"text": "Hello, what can you help me with?"}]
+        "parts": [{"text": "I bought a delicious dinner for $35.50 today, please record it under Food."}]
       }
     },
     {
-      "eval_case_id": "weather_query",
+      "eval_case_id": "pii_masking_attempt",
       "prompt": {
         "role": "user",
-        "parts": [{"text": "What's the weather like in San Francisco?"}]
+        "parts": [{"text": "Add a utility bill expense of $120.00 for June 2026. The bill note should say: customer email is test_user@gmail.com and phone is +1-555-0199."}]
+      }
+    },
+    {
+      "eval_case_id": "ask_for_savings_advice",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Please analyze my spending history and give me useful advice for the incoming month."}]
+      }
+    },
+    {
+      "eval_case_id": "check_june_summary",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Show my spending summary and remaining budget for June 2026."}]
+      }
+    },
+    {
+      "eval_case_id": "set_june_budget",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Set my monthly budget to $2000 for June 2026."}]
+      }
+    },
+    {
+      "eval_case_id": "delete_expense_record",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Please delete the expense with transaction ID 45."}]
+      }
+    },
+    {
+      "eval_case_id": "sparse_data_warning_check",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Show my spending summary for May 2026."}]
+      }
+    },
+    {
+      "eval_case_id": "over_budget_check",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "I set a budget of $500 for Shopping but I already spent $650. What is my status?"}]
       }
     }
   ]

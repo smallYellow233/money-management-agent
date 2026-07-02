@@ -64,17 +64,28 @@ def delete_expense_tool(expense_id: int) -> Dict[str, Any]:
     return {"status": "error", "message": f"Expense ID {expense_id} not found."}
 
 
-def get_monthly_summary_tool(month: str) -> Dict[str, Any]:
-    """Retrieves the spending summary and budget status for a specific month.
+def get_monthly_summary_tool(month: str = None) -> Dict[str, Any]:
+    """Retrieves the spending summary and budget status for a month, defaulting to the current month.
 
     Args:
-        month: The target month in YYYY-MM format (e.g., 2026-06).
+        month: Optional target month in YYYY-MM format (e.g., 2026-06). Defaults to current month if not provided.
 
     Returns:
-        A dictionary with total spending, remaining budget, and category-wise totals.
+        A dictionary with total spending, remaining budget, category-wise totals, and information sufficiency indicators.
     """
+    if not month:
+        import datetime
+        month = datetime.date.today().strftime("%Y-%m-%d")[:7]
+
     summary = db.get_expenses_summary(month)
-    return {"status": "success", "summary": summary}
+    has_enough_info = (summary["transactions_count"] >= 3) and (summary["budget_limit"] is not None)
+    
+    return {
+        "status": "success",
+        "summary": summary,
+        "has_enough_info": has_enough_info,
+        "warning": None if has_enough_info else f"There is limited spending or budget data for the month of {month} (fewer than 3 transactions or no budget set). Please mention this to the user and suggest they check a previous month or set a budget."
+    }
 
 
 def set_monthly_budget_tool(limit_amount: float, month: str) -> Dict[str, Any]:
@@ -98,11 +109,14 @@ def set_monthly_budget_tool(limit_amount: float, month: str) -> Dict[str, Any]:
 
 
 def get_historical_data_for_advice() -> Dict[str, Any]:
-    """Retrieves all budget and expense data to provide comprehensive advice.
+    """Retrieves budget and expense data to provide comprehensive advice, defaulting to the current month.
 
     Returns:
-        A dictionary containing all configured budgets and a listing of recent expenses.
+        A dictionary containing all configured monthly summaries, current month details, and info sufficiency checks.
     """
+    import datetime
+    current_month = datetime.date.today().strftime("%Y-%m-%d")[:7]
+    
     all_budgets = db.get_all_budgets()
     
     # We fetch summaries for all months that have budgets configured
@@ -112,7 +126,13 @@ def get_historical_data_for_advice() -> Dict[str, Any]:
         summary = db.get_expenses_summary(month)
         summaries.append(summary)
         
+    current_month_summary = db.get_expenses_summary(current_month)
+    has_enough_info = (current_month_summary["transactions_count"] >= 3) and (current_month_summary["budget_limit"] is not None)
+    
     return {
         "status": "success",
+        "current_month": current_month,
         "monthly_summaries": summaries,
+        "has_enough_info": has_enough_info,
+        "warning": None if has_enough_info else f"The current month ({current_month}) has sparse transaction data or no budget limit set. Suggest the user to check or input details for a previous month (e.g., 2026-06) for more accurate suggestions."
     }
