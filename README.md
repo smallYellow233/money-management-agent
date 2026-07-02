@@ -2,10 +2,6 @@
 
 Easy Count is a cute, pastel-themed money management app designed to make bookkeeping intuitive, gamified, and delightful.
 
-<p align="center">
-  <img src="docs/dashboard_mockup.png" width="450" alt="Easy Count Dashboard Mockup"/>
-</p>
-
 ## 💡 The Problem & Mission
 Traditional personal finance apps feel dry, serious, and full of complex tables, making tracking expenses a stressful chore. **Easy Count** transforms monthly bookkeeping into a cute, visual experience. By combining high-contrast visual status cards, circular budget progress rings, and daily trend bar charts with the friendly **Piggy Advisor** AI concierge, it removes the dread/anxiety of monthly bookkeeping and guides you to healthy saving habits.
 
