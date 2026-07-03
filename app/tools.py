@@ -27,13 +27,19 @@ def record_expense_tool(amount: float, category: str, note: str, date: str) -> D
         date: The date of the expense in YYYY-MM-DD format.
 
     Returns:
-        A dictionary indicating the status and the recorded expense ID.
+        A dictionary indicating the status, recorded expense ID, and warning if budget is exceeded.
     """
     if amount <= 0:
         return {"status": "error", "message": "Amount must be greater than zero."}
 
     # Mask PII in the note
     masked_note = mask_pii(note)
+
+    # Check if budget is exceeded
+    month = date[:7]
+    summary = db.get_expenses_summary(month)
+    budget = summary["budget_limit"]
+    current_spent = summary["total_spent"]
 
     expense_id = db.add_expense(
         amount=amount,
@@ -42,11 +48,22 @@ def record_expense_tool(amount: float, category: str, note: str, date: str) -> D
         date=date,
     )
 
-    return {
+    new_spent = current_spent + amount
+    is_overbudget = budget is not None and new_spent > budget
+    
+    warning_message = None
+    if is_overbudget:
+        warning_message = f"Please consider your spending this month, you have already exceeded the budget."
+
+    response = {
         "status": "success",
         "message": f"Expense of ${amount:.2f} under category '{category}' recorded successfully.",
         "expense_id": expense_id,
     }
+    if warning_message:
+        response["warning"] = warning_message
+        
+    return response
 
 
 def delete_expense_tool(expense_id: int) -> Dict[str, Any]:

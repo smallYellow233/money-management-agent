@@ -1049,7 +1049,11 @@
                     updateMonthDisplay();
                     loadDashboardData();
                     
-                    appendMessage('agent', `I've recorded your expense of $${amount.toFixed(2)} for ${category}.`);
+                    if (res.warning) {
+                        appendMessage('agent', `I've recorded your expense of $${amount.toFixed(2)} for ${category}.\n\n⚠️ ${res.warning}`);
+                    } else {
+                        appendMessage('agent', `I've recorded your expense of $${amount.toFixed(2)} for ${category}.`);
+                    }
                 } else {
                     alert(res.message);
                 }
