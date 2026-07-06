@@ -125,31 +125,35 @@ def set_monthly_budget_tool(limit_amount: float, month: str) -> Dict[str, Any]:
     }
 
 
-def get_historical_data_for_advice() -> Dict[str, Any]:
+def get_historical_data_for_advice(month: str = None) -> Dict[str, Any]:
     """Retrieves budget and expense data to provide comprehensive advice, defaulting to the current month.
 
+    Args:
+        month: Optional target month in YYYY-MM format (e.g., 2026-06) to analyze. Defaults to current month if not provided.
+
     Returns:
-        A dictionary containing all configured monthly summaries, current month details, and info sufficiency checks.
+        A dictionary containing all configured monthly summaries, target month details, and info sufficiency checks.
     """
     import datetime
-    current_month = datetime.date.today().strftime("%Y-%m-%d")[:7]
+    if not month:
+        month = datetime.date.today().strftime("%Y-%m-%d")[:7]
     
     all_budgets = db.get_all_budgets()
     
     # We fetch summaries for all months that have budgets configured
     summaries = []
     for b in all_budgets:
-        month = b["month"]
-        summary = db.get_expenses_summary(month)
+        m = b["month"]
+        summary = db.get_expenses_summary(m)
         summaries.append(summary)
         
-    current_month_summary = db.get_expenses_summary(current_month)
-    has_enough_info = (current_month_summary["transactions_count"] >= 3) and (current_month_summary["budget_limit"] is not None)
+    target_month_summary = db.get_expenses_summary(month)
+    has_enough_info = (target_month_summary["transactions_count"] >= 3) and (target_month_summary["budget_limit"] is not None)
     
     return {
         "status": "success",
-        "current_month": current_month,
+        "target_month": month,
         "monthly_summaries": summaries,
         "has_enough_info": has_enough_info,
-        "warning": None if has_enough_info else f"The current month ({current_month}) has sparse transaction data or no budget limit set. Suggest the user to check or input details for a previous month (e.g., 2026-06) for more accurate suggestions."
+        "warning": None if has_enough_info else f"The target month ({month}) has sparse transaction data or no budget limit set. Suggest the user to check or input details for a previous month (e.g., 2026-06) for more accurate suggestions."
     }
